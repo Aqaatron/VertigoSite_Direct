@@ -1,0 +1,208 @@
+// main.js
+document.addEventListener('DOMContentLoaded', function() {
+  // --- 1. Скролл-анимации (Intersection Observer) ---
+  const animatedElements = document.querySelectorAll('[data-vr-animate]');
+  if (animatedElements.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.dataset.vrDelay) || 0;
+          setTimeout(() => entry.target.classList.add('vr-visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+    animatedElements.forEach(el => observer.observe(el));
+  }
+
+  // --- 2. Мобильный хедер / бургер ---
+  const burger = document.getElementById('vr-nav-burger');
+  const mobileMenu = document.getElementById('vr-nav-mobile');
+  if (burger && mobileMenu) {
+    const toggleMenu = () => {
+      burger.classList.toggle('vr-nav__hamburger--open');
+      mobileMenu.classList.toggle('vr-nav__mobile--open');
+      document.body.classList.toggle('vr-no-scroll');
+    };
+    burger.addEventListener('click', toggleMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', toggleMenu);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('vr-nav__mobile--open')) toggleMenu();
+    });
+  }
+
+  // --- 3. Плавный скролл по якорям ---
+  document.querySelectorAll('a[href^="#vr-"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const offset = 72; // высота фиксированного меню
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // --- 4. Аккордеон FAQ (закрывать другие при открытии) ---
+  document.querySelectorAll('.vr-faq__item').forEach(item => {
+    item.addEventListener('toggle', function() {
+      if (this.open) {
+        document.querySelectorAll('.vr-faq__item').forEach(other => {
+          if (other !== this && other.open) other.open = false;
+        });
+      }
+    });
+  });
+
+  // --- 5. Карусель отзывов ---
+  const track = document.getElementById('vr-reviews-track');
+  if (track) {
+    const cards = track.querySelectorAll('.vr-review');
+    const prevBtn = document.querySelector('.vr-reviews__arrow--prev');
+    const nextBtn = document.querySelector('.vr-reviews__arrow--next');
+    const dotsContainer = document.getElementById('vr-reviews-dots');
+    if (cards.length && dotsContainer) {
+      // генерация точек
+      cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'vr-reviews__dot' + (i === 0 ? ' vr-reviews__dot--active' : '');
+        dot.addEventListener('click', () => {
+          const scrollTarget = cards[i].offsetLeft - (track.offsetWidth / 2) + (cards[i].offsetWidth / 2);
+          track.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+        });
+        dotsContainer.appendChild(dot);
+      });
+      const dots = dotsContainer.querySelectorAll('.vr-reviews__dot');
+      const getActiveIndex = () => {
+        const center = track.getBoundingClientRect().left + track.offsetWidth / 2;
+        let closest = 0, min = Infinity;
+        cards.forEach((card, i) => {
+          const d = Math.abs(card.getBoundingClientRect().left + card.offsetWidth / 2 - center);
+          if (d < min) { min = d; closest = i; }
+        });
+        return closest;
+      };
+      let scrollTimeout;
+      track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          const idx = getActiveIndex();
+          dots.forEach((dot, i) => dot.classList.toggle('vr-reviews__dot--active', i === idx));
+        }, 100);
+      });
+      const step = () => cards[0].offsetWidth + 24;
+      if (prevBtn) prevBtn.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      if (nextBtn) nextBtn.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+    }
+  }
+
+  // --- 6. Форма: маска телефона, валидация, отправка на webhook ---
+  const form = document.getElementById('vr-booking-form');
+  const phoneInput = document.getElementById('vr-booking-phone');
+  if (form && phoneInput) {
+    // маска телефона +7 (XXX) XXX-XX-XX
+    phoneInput.addEventListener('input', function(e) {
+      let x = this.value.replace(/\D/g, '');
+      if (x.length === 0) { this.value = ''; return; }
+      if (x[0] === '8') x = '7' + x.slice(1);
+      if (x[0] !== '7') x = '7' + x;
+      let formatted = '+7';
+      if (x.length > 1) formatted += ' (' + x.substring(1, 4);
+      if (x.length >= 4) formatted += ') ' + x.substring(4, 7);
+      if (x.length >= 7) formatted += '-' + x.substring(7, 9);
+      if (x.length >= 9) formatted += '-' + x.substring(9, 11);
+      this.value = formatted;
+    });
+    phoneInput.addEventListener('focus', function() { if (!this.value) this.value = '+7'; });
+    phoneInput.addEventListener('blur', function() { if (this.value === '+7' || this.value === '+7 (') this.value = ''; });
+
+    const consentCheck = document.getElementById('vr-booking-consent');
+    if (consentCheck) {
+      consentCheck.addEventListener('change', function() {
+        this.nextElementSibling.classList.remove('vr-form__checkbox-custom--error');
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('vr-booking-name').value.trim();
+      const phoneRaw = document.getElementById('vr-booking-phone').value.replace(/\D/g, '');
+      let isValid = true;
+
+      document.querySelectorAll('.vr-form__input--error').forEach(el => el.classList.remove('vr-form__input--error'));
+      if (name.length < 2) {
+        document.getElementById('vr-booking-name').classList.add('vr-form__input--error');
+        isValid = false;
+      }
+      if (phoneRaw.length < 11) {
+        phoneInput.classList.add('vr-form__input--error');
+        isValid = false;
+      }
+      if (consentCheck && !consentCheck.checked) {
+        consentCheck.nextElementSibling.classList.add('vr-form__checkbox-custom--error');
+        isValid = false;
+      }
+      if (!isValid) return;
+
+      // отправка в CRM (Leadovsky webhook)
+      const params = new URLSearchParams();
+      params.append('name', name);
+      params.append('phone', document.getElementById('vr-booking-phone').value);
+      params.append('page', window.location.href);
+      fetch('https://vr.leadovsky.agency/api/webhook/tilda?targetolog_id=376&school_id=26', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+        body: params.toString()
+      }).catch(() => {});
+
+      // редирект на страницу "спасибо"
+      window.location.href = '/thanks';
+    });
+  }
+
+  // --- 7. (Опционально) Динамический фавикон с буквой "В" ---
+  (function() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 64; canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 64, 64);
+    grad.addColorStop(0, '#E85D15');
+    grad.addColorStop(1, '#6B5CE7');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect(0, 0, 64, 64, 12);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 42px Montserrat, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('В', 32, 35);
+    let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.rel = 'shortcut icon';
+    link.type = 'image/png';
+    link.href = canvas.toDataURL('image/png');
+    document.head.appendChild(link);
+  })();
+});
+
+// вспомогательная функция для roundRect (если не определена)
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+    if (w < 2 * r) r = w / 2;
+    if (h < 2 * r) r = h / 2;
+    this.moveTo(x+r, y);
+    this.lineTo(x+w-r, y);
+    this.quadraticCurveTo(x+w, y, x+w, y+r);
+    this.lineTo(x+w, y+h-r);
+    this.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    this.lineTo(x+r, y+h);
+    this.quadraticCurveTo(x, y+h, x, y+h-r);
+    this.lineTo(x, y+r);
+    this.quadraticCurveTo(x, y, x+r, y);
+    return this;
+  };
+}

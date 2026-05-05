@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ВЕРТИГО VR КЛУБ САРАТОВ | VR-арена для праздников</title>
+  <meta name="description" content="Организуйте детский день рождения с VR-играми в Саратове. Профессиональный ведущий в подарок, современные шлемы Oculus Quest 3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- GSAP (опционально, если нужны продвинутые анимации. Оставляем ссылки) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" type="image/png" href="data:image/png;base64,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">
+</head>
+<body>
+  <div id="allrecords">
+    <!-- Навигация -->
+    <div class="vr-nav" id="vr-header">
+      <div class="vr-container vr-nav__container">
+        <a href="#vr-hero" class="vr-nav__logo"><span class="vr-nav__logo-text"><span class="vr-nav__logo-v">В</span>ЕРТИГО</span></a>
+        <ul class="vr-nav__links">
+          <li><a href="#vr-tariffs" class="vr-nav__link">Тарифы</a></li>
+          <li><a href="#vr-reviews" class="vr-nav__link">Отзывы</a></li>
+          <li><a href="#vr-faq" class="vr-nav__link">FAQ</a></li>
+        </ul>
+        <div class="vr-nav__actions">
+          <div class="vr-nav__info">
+            <span class="vr-nav__address">Саратов, пр-т Столыпина, 27, ТК «Манеж», 3&nbsp;этаж</span>
+            <span class="vr-nav__hours">Ежедневно 10:00–21:00</span>
+          </div>
+          <a href="tel:89027100210" class="vr-nav__phone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>8 902 710 02 10</span></a>
+          <a href="#vr-booking" class="vr-btn vr-btn--primary vr-nav__cta">Забронировать</a>
+        </div>
+        <button class="vr-nav__hamburger" id="vr-nav-burger"><span></span><span></span><span></span></button>
+      </div>
+      <div class="vr-nav__mobile" id="vr-nav-mobile">
+        <a href="#vr-benefits" class="vr-nav__mobile-link">Преимущества</a>
+        <a href="#vr-how-it-works" class="vr-nav__mobile-link">Как проходит</a>
+        <a href="#vr-tariffs" class="vr-nav__mobile-link">Тарифы</a>
+        <a href="#vr-reviews" class="vr-nav__mobile-link">Отзывы</a>
+        <a href="#vr-faq" class="vr-nav__mobile-link">FAQ</a>
+        <a href="#vr-booking" class="vr-btn vr-btn--primary">Забронировать</a>
+      </div>
+    </div>
+
+    <!-- Hero-блок (фоновая картинка) -->
+    <div class="vr-v3-wrapper" id="vr-hero">
+      <img src="images/hero-birthday-2026.jpg" alt="Фон" class="vr-v3-bg">
+      <div class="vr-v3-gradient"></div>
+      <div class="vr-v3-container">
+        <div class="vr-v3-content">
+          <h1 class="vr-v3-title">
+            <span class="vr-v3-color-top">Организуйте уникальный</span>
+            <span class="vr-v3-color-blue">ДЕТСКИЙ ДЕНЬ</span>
+            <span class="vr-v3-color-purple">РОЖДЕНИЯ</span>
+            <span class="vr-v3-color-orange">В САРАТОВЕ</span>
+          </h1>
+          <p class="vr-v3-subtitle">с играми виртуальной реальности<br>и удивите своего ребенка</p>
+          <div class="vr-v3-gift">
+            <img src="images/4213958.png" alt="Подарок" class="vr-v3-gift-icon">
+            <div class="vr-v3-gift-text">Профессиональный ведущий на всю длительность программы <strong>В ПОДАРОК!</strong></div>
+          </div>
+          <div class="vr-v3-btns"><a href="#vr-booking" class="vr-v3-btn vr-v3-btn--primary">Узнать стоимость</a></div>
+          <p class="vr-v3-trust">Игры не только развлекают, но и развивают умственные способности</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Галерея -->
+    <section class="vr-section" id="vr-gallery" style="background:#1A1A2E !important;">
+      <div class="vr-container">
+        <h2 class="vr-section__title" data-vr-animate="">Как проходят наши <span class="vr-accent">праздники</span></h2>
+        <p class="vr-section__subtitle" data-vr-animate="">Фотографии с настоящих VR-праздников в ВЕРТИГО</p>
+        <div class="vr-gallery__grid">
+          <div class="vr-gallery__item" data-vr-animate=""><img src="images/IMG_6291_Leonov_E_V.jpg" alt="Дети играют в VR" loading="lazy"></div>
+          <div class="vr-gallery__item" data-vr-animate="" data-vr-delay="100"><img src="images/IMG_0046.jpg" alt="Дети в VR-шлемах" loading="lazy"></div>
+          <div class="vr-gallery__item" data-vr-animate="" data-vr-delay="200"><img src="images/IMG_9972.jpg" alt="Празднование дня рождения в VR-арене" loading="lazy"></div>
+          <div class="vr-gallery__item" data-vr-animate="" data-vr-delay="100"><img src="images/photo_2026-04-08_13-.jpg.webp" alt="Командная VR-игра" loading="lazy"></div>
+          <div class="vr-gallery__item" data-vr-animate="" data-vr-delay="200"><img src="images/IMG_0936.jpg" alt="Зона отдыха" loading="lazy"></div>
+          <div class="vr-gallery__item" data-vr-animate="" data-vr-delay="300"><img src="images/photo_2026-04-07_12-.jpg.webp" alt="Групповое фото" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Отзывы карусель -->
+    <section class="vr-section" id="vr-reviews" style="background:#1A1A2E !important;">
+      <div class="vr-container">
+        <h2 class="vr-section__title" data-vr-animate="">Что говорят наши гости <span class="vr-accent">после визита</span></h2>
+        <div class="vr-reviews__wrapper" data-vr-animate="">
+          <button class="vr-reviews__arrow vr-reviews__arrow--prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="vr-reviews__track" id="vr-reviews-track">
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Ольга Якоби</span><span class="vr-review__child">День рождения, 10&nbsp;детей</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Игра безопасная, 10&nbsp;детей на&nbsp;поле замечательно поиграли. Не&nbsp;было ни&nbsp;столкновений, ни&nbsp;происшествий. Дети в&nbsp;полном восторге. Рекомендую!</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Виктория Ерошкина</span><span class="vr-review__child">Дети от&nbsp;9 до&nbsp;21 года</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Игра подходит всем возрастам. У&nbsp;нас был разбег от&nbsp;21&nbsp;до&nbsp;9&nbsp;лет и&nbsp;все вместе здорово зажигали. Лучший VR&nbsp;клуб в&nbsp;Саратове!</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Ильяс А.</span><span class="vr-review__child">День рождения дочери</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Ребята очень отзывчивые, справились на&nbsp;5+. Администратор Максим всё подробно объяснил и&nbsp;полностью контролировал весь процесс.</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Анастасия Т.</span><span class="vr-review__child">Семейный визит</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">100% рекомендую! Потрясающая обстановка, отзывчивый персонал, уют. Дети и&nbsp;родители счастливы и&nbsp;довольны!</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Kirill P.</span><span class="vr-review__child">Визит с&nbsp;девушкой</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Полное погружение в&nbsp;VR и&nbsp;супердружелюбный персонал. Цены очень приятные. Лучший VR&nbsp;клуб в&nbsp;Саратове!</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Руслан Кудашкин</span><span class="vr-review__child">Первое посещение</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Комфортная атмосфера, вежливый персонал и&nbsp;подробный инструктаж&nbsp;— чувствуешь себя в&nbsp;безопасности даже при первом посещении.</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Яна</span><span class="vr-review__child">Визит с&nbsp;детьми</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Дети в&nbsp;восторге! Приветливый персонал, всё объяснили, показали. Настоящий индивидуальный подход. Новый, чистый клуб.</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+            <article class="vr-review vr-glass"><div class="vr-review__header"><span class="vr-review__name">Михаил К.</span><span class="vr-review__child">Командный визит</span></div><div class="vr-review__stars">★★★★★</div><blockquote class="vr-review__text">Даст фору любым подобным местам в&nbsp;крупных городах! Подойдёт для любого мероприятия: коллеги, друзья или детский день рождения!</blockquote><span class="vr-review__source">Яндекс Карты</span></article>
+          </div>
+          <button class="vr-reviews__arrow vr-reviews__arrow--next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="vr-reviews__dots" id="vr-reviews-dots"></div>
+        <div class="vr-reviews__yandex" data-vr-animate=""><a href="https://yandex.com/maps/org/vertigo/103489904717/" class="vr-reviews__yandex-link" target="_blank" rel="noopener"><span class="vr-reviews__yandex-badge">★ 5.0</span><span class="vr-reviews__yandex-text">109 оценок на Яндекс Картах</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg></a></div>
+      </div>
+    </section>
+
+    <!-- FAQ Аккордеон -->
+    <section class="vr-section" id="vr-faq" style="background:#1E1E30 !important;">
+      <div class="vr-container">
+        <h2 class="vr-section__title" data-vr-animate="">Ответы на&nbsp;вопросы, которые задают <span class="vr-accent">9&nbsp;из&nbsp;10&nbsp;родителей</span></h2>
+        <div class="vr-faq__list">
+          <details class="vr-faq__item vr-glass" data-vr-animate=""><summary class="vr-faq__question"><span class="vr-faq__question-text">Безопасен ли VR для детей? С&nbsp;какого возраста можно играть?</span><span class="vr-faq__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary><div class="vr-faq__answer"><p>Да, полностью безопасен. Мы используем Oculus Quest&nbsp;3&nbsp;— лёгкие, удобные шлемы последнего поколения. Минимальный возраст&nbsp;— 4&nbsp;года. Каждый ребёнок находится под наблюдением персонального инструктора.</p></div></details>
+          <details class="vr-faq__item vr-glass" data-vr-animate="" data-vr-delay="50"><summary class="vr-faq__question"><span class="vr-faq__question-text">Можно ли принести свою еду и&nbsp;торт?</span><span class="vr-faq__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary><div class="vr-faq__answer"><p>Конечно! У&nbsp;нас есть полностью оборудованная зона отдыха с&nbsp;посудой, стаканами и&nbsp;салфетками. Вам нужно привезти только торт и&nbsp;угощения.</p></div></details>
+          <details class="vr-faq__item vr-glass" data-vr-animate="" data-vr-delay="100"><summary class="vr-faq__question"><span class="vr-faq__question-text">Как проходит дезинфекция оборудования?</span><span class="vr-faq__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary><div class="vr-faq__answer"><p>Каждый шлем и&nbsp;контроллер обрабатываются антисептическим средством до&nbsp;и&nbsp;после каждой сессии. Мы используем специальные гигиенические маски для VR-шлемов.</p></div></details>
+          <details class="vr-faq__item vr-glass" data-vr-animate="" data-vr-delay="150"><summary class="vr-faq__question"><span class="vr-faq__question-text">Сколько детей могут играть одновременно?</span><span class="vr-faq__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary><div class="vr-faq__answer"><p>Зависит от&nbsp;пакета: Минимальный&nbsp;— до&nbsp;10, Оптимальный&nbsp;— до&nbsp;12, Максимальный&nbsp;— до&nbsp;20&nbsp;детей. В&nbsp;VR-арене одновременно играют до&nbsp;18&nbsp;человек, остальные&nbsp;— в&nbsp;лаунж-зоне с&nbsp;PS5, настольными играми и&nbsp;зоной отдыха.</p></div></details>
+          <details class="vr-faq__item vr-glass" data-vr-animate="" data-vr-delay="200"><summary class="vr-faq__question"><span class="vr-faq__question-text">Будет ли персональный инструктор?</span><span class="vr-faq__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary><div class="vr-faq__answer"><p>Да, к&nbsp;каждому празднику прикрепляется персональный инструктор-ведущий. Он&nbsp;проводит инструктаж, помогает освоить VR, следит за&nbsp;безопасностью и&nbsp;создаёт праздничную атмосферу.</p></div></details>
+          <details class="vr-faq__item vr-glass" data-vr-animate="" data-vr-delay="250"><summary class="vr-faq__question"><span class="vr-faq__question-text">Какие игры доступны? Можно ли выбрать?</span><span class="vr-faq__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span></summary><div class="vr-faq__answer"><p>В&nbsp;нашей библиотеке большой выбор: Portal Strike, Portal Mafia, Portal Zombie, Portal Arcade, Party Games, Birthday Party, Minecraft, Roblox, Job Simulator, Beat Saber. Есть командные шутеры, битва с&nbsp;Зомби, весёлые мини-игры и&nbsp;развивающие квесты для любого возраста. Инструктор подберёт игры исходя из&nbsp;возраста и&nbsp;интересов группы.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Форма бронирования -->
+    <section class="vr-section" id="vr-booking" style="background:#1A1A2E !important;">
+      <div class="vr-container">
+        <h2 class="vr-section__title" data-vr-animate="">Забронируйте <span class="vr-accent">дату</span></h2>
+        <p class="vr-section__subtitle" data-vr-animate="">Свободных слотов на&nbsp;выходные всё меньше</p>
+        <div class="vr-booking__grid" data-vr-animate="">
+          <div class="vr-booking__info"><ul class="vr-booking__benefits"><li class="vr-booking__benefit"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Подтверждение за&nbsp;15&nbsp;минут</span></li><li class="vr-booking__benefit"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Бесплатная отмена за&nbsp;48&nbsp;часов</span></li><li class="vr-booking__benefit"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Персональный подбор игр</span></li></ul></div>
+          <div class="vr-booking__form-wrapper">
+            <form class="vr-booking__form" id="vr-booking-form" novalidate>
+              <div class="vr-form__group"><label class="vr-form__label" for="vr-booking-name">Имя</label><input class="vr-form__input" type="text" id="vr-booking-name" name="name" required placeholder="Ваше имя"></div>
+              <div class="vr-form__group"><label class="vr-form__label" for="vr-booking-phone">Телефон</label><input class="vr-form__input" type="tel" id="vr-booking-phone" name="phone" required placeholder="+7 (___) ___-__-__"></div>
+              <div class="vr-form__group vr-form__group--checkbox"><label class="vr-form__checkbox-label"><input type="checkbox" id="vr-booking-consent" name="consent" required class="vr-form__checkbox"><span class="vr-form__checkbox-custom"></span><span class="vr-form__checkbox-text">Я&nbsp;согласен на&nbsp;<a href="/policy" target="_blank" class="vr-form__checkbox-link">обработку персональных данных</a></span></label></div>
+              <button class="vr-btn vr-btn--primary vr-booking__submit" type="submit">Забронировать праздник</button>
+            </form>
+            <div class="vr-booking__messengers"><span class="vr-booking__messengers-label">Или напишите нам:</span><div class="vr-booking__messengers-links"><a href="https://t.me/vertigovr" class="vr-booking__messenger vr-booking__messenger--tg" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg><span>Telegram</span></a><a href="https://max.ru/u/f9LHodD0cOI0u99Zom2SJFwaHhy8GE52nzqfKjoRm6GyaI3vZlxYx_HJwmc" class="vr-booking__messenger vr-booking__messenger--max" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="11" fill="#168DE2"/><text x="12" y="16.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial,sans-serif">M</text></svg><span>MAX</span></a></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Карта -->
+    <section class="vr-section" id="vr-location" style="background:#1E1E30 !important;">
+      <div class="vr-container">
+        <h2 class="vr-section__title" data-vr-animate="">Как нас <span class="vr-accent">найти</span></h2>
+        <p class="vr-section__subtitle" data-vr-animate="">Саратов, пр-т имени Петра Столыпина, 27, ТК&nbsp;«Манеж», 3&nbsp;этаж</p>
+        <div class="vr-location__map-wrapper" data-vr-animate="">
+          <iframe class="vr-location__map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A9a8f9c0c8f8a1c0b8f8a1c0b8f8a1c0b&amp;source=constructor" width="100%" height="450" frameborder="0" allowfullscreen loading="lazy" title="ВЕРТИГО VR Arena на карте"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="vr-footer" id="vr-contacts" style="background:#12121F !important;">
+      <div class="vr-container">
+        <div class="vr-footer__grid">
+          <div class="vr-footer__brand"><a href="#vr-hero" class="vr-footer__logo"><span class="vr-footer__logo-text"><span class="vr-footer__logo-v">В</span>ЕРТИГО</span></a><address class="vr-footer__address">Саратов, пр-т имени Петра Столыпина, 27,<br>ТК «Манеж», 3&nbsp;этаж</address><a href="tel:89027100210" class="vr-footer__phone">8 902 710 02 10</a><span class="vr-footer__hours">Ежедневно 10:00–21:00</span><span class="vr-footer__legal-info">ИП Сидорова Л.Г. / ИНН 643969513393</span></div>
+          <nav class="vr-footer__nav"><span class="vr-footer__nav-heading">Навигация</span><ul class="vr-footer__nav-list"><li><a href="#vr-tariffs" class="vr-footer__nav-link">Тарифы</a></li><li><a href="#vr-reviews" class="vr-footer__nav-link">Отзывы</a></li><li><a href="#vr-faq" class="vr-footer__nav-link">FAQ</a></li><li><a href="#vr-booking" class="vr-footer__nav-link">Контакты</a></li></ul></nav>
+          <nav class="vr-footer__nav vr-footer__nav--legal"><span class="vr-footer__nav-heading">Документы</span><ul class="vr-footer__nav-list"><li><a href="/policy" class="vr-footer__nav-link">Политика конфиденциальности</a></li><li><a href="/offer" class="vr-footer__nav-link">Публичная оферта</a></li><li><a href="/terms" class="vr-footer__nav-link">Пользовательское соглашение</a></li><li><a href="/cookies" class="vr-footer__nav-link">Политика cookies</a></li></ul></nav>
+          <div class="vr-footer__social"><a href="https://t.me/vertigovr" class="vr-footer__social-link" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a><a href="https://vk.com/vertigo_saratov" class="vr-footer__social-link" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.714-1.033-1.01-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.12-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.814-.542 1.27-1.422 2.167-3.607 2.167-3.607.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.049.17.474-.085.716-.576.716z"/></svg></a></div>
+        </div>
+        <div class="vr-footer__bottom"><span class="vr-footer__copy">© 2021–2026 ВЕРТИГО VR Arena</span><div class="vr-footer__bottom-links"><a href="/policy" class="vr-footer__privacy">Конфиденциальность</a><span class="vr-footer__bottom-sep">|</span><a href="/offer" class="vr-footer__privacy">Оферта</a><span class="vr-footer__bottom-sep">|</span><a href="/terms" class="vr-footer__privacy">Соглашение</a><span class="vr-footer__bottom-sep">|</span><a href="/cookies" class="vr-footer__privacy">Cookies</a></div></div>
+      </div>
+    </footer>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
