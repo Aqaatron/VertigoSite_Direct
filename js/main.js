@@ -147,20 +147,34 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       if (!isValid) return;
 
-      // отправка в CRM (Leadovsky webhook)
-      const params = new URLSearchParams();
-      params.append('name', name);
-      params.append('phone', document.getElementById('vr-booking-phone').value);
-      params.append('page', window.location.href);
-      fetch('https://vr.leadovsky.agency/api/webhook/tilda?targetolog_id=376&school_id=26', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-        body: params.toString()
-      }).catch(() => {});
+      // ... ваш код по сбору данных ...
 
+      // Отправка заявки в AmoCRM через ваш новый прокси
+      fetch('http://vertigovr.ru/api/sendForm', { // Для PHP
+      // fetch('/proxy/amocrm', {  // Для Node.js (раскомментируйте эту строку и закомментируйте строку выше)
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              name: name,
+              phone: phoneRaw, // Убедитесь, что phone — это строка с номером
+              comment: 'Заявка с сайта, страница: ' + window.location.href
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('✅ Заявка успешно отправлена в AmoCRM', data);
+          // Здесь может быть ваш код для показа благодарности
+      })
+      .catch(error => {
+          console.error('❌ Ошибка при отправке заявки:', error);
+          // Здесь можно показать сообщение об ошибке пользователю
+      });
+
+      // ... редирект на страницу "спасибо" ...
       // редирект на страницу "спасибо"
-      window.location.href = '/thanks';
+      //window.location.href = '/thanks';
     });
   }
 
