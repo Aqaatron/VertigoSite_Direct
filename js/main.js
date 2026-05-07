@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // ========== 1. АНИМАЦИИ ПОЯВЛЕНИЯ (с учётом prefers-reduced-motion) ==========
   var animatedElements = document.querySelectorAll('[data-vr-animate]');
   if (animatedElements.length) {
-    // Если пользователь включил уменьшение движения — показываем сразу
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       animatedElements.forEach(function(el) {
         el.classList.add('vr-visible');
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
-        const offset = 72; // высота фиксированного меню
+        const offset = 72;
         const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -88,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.querySelector('.vr-reviews__arrow--next');
     const dotsContainer = document.getElementById('vr-reviews-dots');
     if (cards.length && dotsContainer) {
-      // генерация точек
       cards.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'vr-reviews__dot' + (i === 0 ? ' vr-reviews__dot--active' : '');
@@ -122,9 +120,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // --- 6. Форма: маска телефона, валидация, отправка на webhook ---
+  // --- Функция показа уведомления (toast) ---
+  function showNotification(message, isError = false) {
+    // Удаляем предыдущее уведомление, если есть
+    const existingToast = document.querySelector('.vr-toast');
+    if (existingToast) existingToast.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'vr-toast' + (isError ? ' vr-toast--error' : '');
+    toast.innerHTML = `
+      <div class="vr-toast__icon">${isError ? '⚠️' : '✓'}</div>
+      <div class="vr-toast__text">${message}</div>
+    `;
+    document.body.appendChild(toast);
+    // Принудительный reflow для анимации
+    toast.offsetHeight;
+    toast.classList.add('vr-toast--show');
+    setTimeout(() => {
+      toast.classList.remove('vr-toast--show');
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  }
+
+  // --- 6. Форма: маска телефона, валидация, отправка с уведомлением ---
   const form = document.getElementById('vr-booking-form');
   const phoneInput = document.getElementById('vr-booking-phone');
+  let isSubmitting = false; // Флаг для предотвращения повторной отправки
+
   if (form && phoneInput) {
     // маска телефона +7 (XXX) XXX-XX-XX
     phoneInput.addEventListener('input', function(e) {
@@ -149,8 +171,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
+    const submitBtn = form.querySelector('.vr-booking__submit');
+    const originalBtnText = submitBtn ? submitBtn.innerText : 'Забронировать праздник';
+
     form.addEventListener('submit', function(e) {
       e.preventDefault();
+      if (isSubmitting) return;
+
       const name = document.getElementById('vr-booking-name').value.trim();
       const phoneRaw = document.getElementById('vr-booking-phone').value.replace(/\D/g, '');
       let isValid = true;
@@ -168,36 +195,47 @@ document.addEventListener('DOMContentLoaded', function() {
         consentCheck.nextElementSibling.classList.add('vr-form__checkbox-custom--error');
         isValid = false;
       }
-      if (!isValid) return;
+      if (!isValid) {
+        showNotification('Пожалуйста, заполните все поля правильно', true);
+        return;
+      }
 
-      // ... ваш код по сбору данных ...
+      // Блокируем кнопку
+      isSubmitting = true;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Отправка...';
+      }
 
-      // Отправка заявки в AmoCRM через ваш новый прокси
+      // Отправка заявки (используйте нужный эндпоинт)
       fetch('https://vertigovr.ru/api/sendForm', { // Для PHP
-      // fetch('/proxy/amocrm', {  // Для Node.js (раскомментируйте эту строку и закомментируйте строку выше)
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              name: name,
-              phone: phoneRaw, // Убедитесь, что phone — это строка с номером
-              comment: 'Заявка с сайта, страница: ' + window.location.href
-          })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          phone: phoneRaw,
+          comment: 'Заявка с сайта, страница: ' + window.location.href
+        })
       })
       .then(response => response.json())
       .then(data => {
-          console.log('✅ Заявка успешно отправлена в AmoCRM', data);
-          // Здесь может быть ваш код для показа благодарности
+        console.log('✅ Заявка успешно отправлена', data);
+        showNotification('Заявка отправлена! Мы скоро с Вами свяжемся');
+        // Опционально: очистить форму
+        form.reset();
+        if (phoneInput) phoneInput.value = '';
       })
       .catch(error => {
-          console.error('❌ Ошибка при отправке заявки:', error);
-          // Здесь можно показать сообщение об ошибке пользователю
+        console.error('❌ Ошибка при отправке заявки:', error);
+        showNotification('Ошибка отправки. Попробуйте позже или напишите нам в Telegram', true);
+      })
+      .finally(() => {
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalBtnText;
+        }
       });
-
-      // ... редирект на страницу "спасибо" ...
-      // редирект на страницу "спасибо"
-      //window.location.href = '/thanks';
     });
   }
 
