@@ -1,18 +1,41 @@
 // main.js
 document.addEventListener('DOMContentLoaded', function() {
-  // --- 1. Скролл-анимации (Intersection Observer) ---
-  const animatedElements = document.querySelectorAll('[data-vr-animate]');
+  // ========== 1. АНИМАЦИИ ПОЯВЛЕНИЯ (с учётом prefers-reduced-motion) ==========
+  var animatedElements = document.querySelectorAll('[data-vr-animate]');
   if (animatedElements.length) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const delay = parseInt(entry.target.dataset.vrDelay) || 0;
-          setTimeout(() => entry.target.classList.add('vr-visible'), delay);
-          observer.unobserve(entry.target);
-        }
+    // Если пользователь включил уменьшение движения — показываем сразу
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      animatedElements.forEach(function(el) {
+        el.classList.add('vr-visible');
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-    animatedElements.forEach(el => observer.observe(el));
+    } else {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var delay = parseInt(entry.target.dataset.vrDelay) || 0;
+            setTimeout(function() {
+              entry.target.classList.add('vr-visible');
+            }, delay);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+      animatedElements.forEach(function(el) {
+        observer.observe(el);
+      });
+    }
+  }
+
+  // ========== 2. ЭФФЕКТ ПРИ СКРОЛЛЕ (затемнение навигации) ==========
+  var nav = document.querySelector('.vr-nav');
+  if (nav) {
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 50) {
+        nav.classList.add('vr-nav--scrolled');
+      } else {
+        nav.classList.remove('vr-nav--scrolled');
+      }
+    }, { passive: true });
   }
 
   // --- 2. Мобильный хедер / бургер ---

@@ -701,7 +701,7 @@ p {
 
 @media (max-width: 768px) {
   .vr-v3-wrapper { padding: 120px 0 40px 0; align-items: flex-start; }
-  .vr-v3-gradient { background: linear-gradient(180deg, rgba(15,15,20,0.92) 0%, rgba(15,15,20,0.82) 55%, rgba(15,15,20,0.65) 100%); }
+  .vr-v3-gradient { background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%); }
   .vr-v3-content { align-items: center; text-align: center; margin: 0 auto; }
   .vr-v3-trust {
     color: #FFB347;
