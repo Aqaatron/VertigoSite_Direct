@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // ... ваш код по сбору данных ...
 
       // Отправка заявки в AmoCRM через ваш новый прокси
-      fetch('http://vertigovr.ru/api/sendForm', { // Для PHP
+      fetch('https://vertigovr.ru/api/sendForm', { // Для PHP
       // fetch('/proxy/amocrm', {  // Для Node.js (раскомментируйте эту строку и закомментируйте строку выше)
           method: 'POST',
           headers: {
