@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({
           name: name,
           phone: phoneRaw,
-          comment: 'Заявка с сайта, страница: ' + window.location.href
+          comment: 'Заявка с сайта вертиго64'
         })
       })
       .then(response => response.json())
