@@ -142,37 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 4000);
   }
 
-  // Функция для отправки уведомления в MAX
-async function sendToMax(userName, userPhone) {
-    const MAX_BOT_TOKEN = 'f9LHodD0cOLK2Grv7qadueEvh9PJoZOzKptfrbkbR444-bTOSIpyhtRNzJPnGtZhqqMIYZjMwz0EsjfFdrdJ';
-    const MAX_CHAT_ID = '-74492045124963'; // user_id или chat_id
-
-    const messageText = `🔔 *Новая заявка с сайта*\n\n👤 *ФИО:* ${userName}\n📞 *Телефон:* ${userPhone}\n`;
-
-    try {
-        const response = await fetch(`https://platform-api.max.ru/messages?chat_id=${MAX_CHAT_ID}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': MAX_BOT_TOKEN, // Токен в заголовке!
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                text: messageText,      // Текст сообщения
-                parse_mode: 'Markdown'   // Поддержка форматирования
-            })
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Ошибка MAX API:', errorData);
-        } else {
-            console.log('✅ Уведомление в MAX отправлено!');
-        }
-    } catch (error) {
-        console.error('❌ Ошибка при отправке в MAX:', error);
-    }
-}
-
 
   // --- 6. Форма: маска телефона, валидация, отправка с уведомлением ---
   const form = document.getElementById('vr-booking-form');
@@ -253,7 +222,6 @@ async function sendToMax(userName, userPhone) {
       .then(data => {
         console.log('✅ Заявка успешно отправлена', data);
         showNotification('Заявка отправлена! Мы скоро с Вами свяжемся');
-        sendToMax(name, phoneRaw);
         if (typeof ym !== 'undefined') {
           ym(109107756, 'reachGoal', 'send_form');
           console.log('Метрика: отправлена цель send_form');
