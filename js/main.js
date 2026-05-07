@@ -142,6 +142,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 4000);
   }
 
+  // --- Отправка уведомления в Telegram ---
+  async function sendToTelegram(userName, userPhone, pageUrl) {
+    const botToken = 'bot8341433626:AAFLFWm2ExJH3RuHfgVQ3QbPTCye9RSo-xU';
+    const chatId = '-1003055161566';
+    
+    const message = `🔔 *Новая заявка с сайта*\n\n👤 *ФИО:* ${userName}\n📞 *Телефон:* ${userPhone}\n📄 *Комментарий:* Заявка с сайта, страница: ${pageUrl}`;
+    
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      });
+      if (!response.ok) {
+        console.warn('Telegram: не удалось отправить сообщение', await response.text());
+      } else {
+        console.log('✅ Уведомление в Telegram отправлено');
+      }
+    } catch (err) {
+      console.warn('Ошибка при отправке в Telegram:', err);
+    }
+  }
+
   // --- 6. Форма: маска телефона, валидация, отправка с уведомлением ---
   const form = document.getElementById('vr-booking-form');
   const phoneInput = document.getElementById('vr-booking-phone');
@@ -221,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(data => {
         console.log('✅ Заявка успешно отправлена', data);
         showNotification('Заявка отправлена! Мы скоро с Вами свяжемся');
+        sendToTelegram(name, phoneRaw, window.location.href);
         // Опционально: очистить форму
         form.reset();
         if (phoneInput) phoneInput.value = '';
