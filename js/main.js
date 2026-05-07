@@ -221,6 +221,12 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(data => {
         console.log('✅ Заявка успешно отправлена', data);
         showNotification('Заявка отправлена! Мы скоро с Вами свяжемся');
+        if (typeof ym !== 'undefined') {
+          ym(109107756, 'reachGoal', 'send_form');
+          console.log('Метрика: отправлена цель send_form');
+        } else {
+          console.warn('Метрика не загружена');
+        }
         // Опционально: очистить форму
         form.reset();
         if (phoneInput) phoneInput.value = '';
