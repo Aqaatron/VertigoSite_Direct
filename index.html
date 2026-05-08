@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- GSAP (опционально, если нужны продвинутые анимации. Оставляем ссылки) -->
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <!-- Hero-блок (фоновая картинка) -->
+    <!-- Hero-блок -->
     <div class="vr-v3-wrapper" id="vr-hero">
       <img src="images/hero-birthday-2026.jpg" alt="Фон" class="vr-v3-bg">
       <div class="vr-v3-gradient"></div>
@@ -97,6 +97,55 @@
       </div>
     </section>
 
+    <!-- НОВЫЙ БЛОК ТАРИФОВ (добавлен) -->
+    <section class="vr-section" id="vr-tariffs" style="background:#1E1E30 !important;">
+      <div class="vr-container">
+        <h2 class="vr-section__title" data-vr-animate="">Выберите <span class="vr-accent">тариф</span> для вашего праздника</h2>
+        <p class="vr-section__subtitle" data-vr-animate="">Подберём вариант под любой бюджет и количество гостей</p>
+        <div class="vr-tariffs__grid">
+          <!-- Тариф 3: Максимальный -->
+          <div class="vr-tariff-card vr-glass" data-vr-animate="" data-vr-delay="200">
+            <div class="vr-tariff__badge  vr-tariff__badge--popular">⭐ Максимальный</div>
+            <div class="vr-tariff__price">от 18 000 ₽</div>
+            <ul class="vr-tariff__features">
+              <li>до 20 детей</li>
+              <li>2 часа VR</li>
+              <li>2 ведущих + аниматор</li>
+              <li>Зона отдыха + PS5 + настолки</li>
+              <li>Профессиональный фотограф</li>
+            </ul>
+            <a href="#vr-booking" class="vr-btn vr-btn--primary">Забронировать</a>
+          </div>
+           <!-- Тариф 2: Оптимальный (популярный) -->
+          <div class="vr-tariff-card vr-glass vr-tariff-card--popular" data-vr-animate="" data-vr-delay="100">
+            <div class="vr-tariff__badge">Оптимальный</div>
+            <div class="vr-tariff__price">от 14 000 ₽</div>
+            <ul class="vr-tariff__features">
+              <li>до 12 детей</li>
+              <li>1.5 часа VR</li>
+              <li>Ведущий + аниматор</li>
+              <li>Зона отдыха + PS5</li>
+              <li>Фотограф в подарок</li>
+            </ul>
+            <a href="#vr-booking" class="vr-btn vr-btn--secondary">Забронировать</a>
+          </div>
+          <!-- Тариф 1: Базовый -->
+          <div class="vr-tariff-card vr-glass" data-vr-animate="">
+            <div class="vr-tariff__badge">Минимальный</div>
+            <div class="vr-tariff__price">от 10 000 ₽</div>
+            <ul class="vr-tariff__features">
+              <li>до 10 детей</li>
+              <li>1 час VR-игр</li>
+              <li>Ведущий-инструктор</li>
+              <li>Зона отдыха с PS5</li>
+              <li class="vr-tariff__feature-na">Фотограф</li>
+            </ul>
+            <a href="#vr-booking" class="vr-btn vr-btn--secondary">Забронировать</a>
+          </div>       
+        </div>
+      </div>
+    </section>
+
     <!-- Отзывы карусель -->
     <section class="vr-section" id="vr-reviews" style="background:#1A1A2E !important;">
       <div class="vr-container">
@@ -120,7 +169,7 @@
       </div>
     </section>
 
-    <!-- FAQ Аккордеон -->
+    <!-- FAQ -->
     <section class="vr-section" id="vr-faq" style="background:#1E1E30 !important;">
       <div class="vr-container">
         <h2 class="vr-section__title" data-vr-animate="">Ответы на&nbsp;вопросы, которые задают <span class="vr-accent">9&nbsp;из&nbsp;10&nbsp;родителей</span></h2>
@@ -197,7 +246,6 @@
                 <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.714-1.033-1.01-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.12-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.864 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.372 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.814-.542 1.27-1.422 2.167-3.607 2.167-3.607.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.049.17.474-.085.716-.576.716z"/>
               </svg>
             </a>
-            <!-- НОВАЯ ССЫЛКА НА MAX -->
             <a href="https://max.ru/u/f9LHodD0cOI0u99Zom2SJFwaHhy8GE52nzqfKjoRm6GyaI3vZlxYx_HJwmc" class="vr-footer__social-link" target="_blank">
               <img src="https://maxicons.ru/icons/Max_logo_black.svg" alt="MAX" width="28" height="28" style="filter: brightness(0) invert(1);">
             </a>

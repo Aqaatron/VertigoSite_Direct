@@ -288,3 +288,28 @@ if (!CanvasRenderingContext2D.prototype.roundRect) {
     return this;
   };
 }
+
+// ... ваш существующий код ...
+
+// Дополнительная инициализация для тарифов (если нужна особая логика)
+(function initTariffs() {
+  const tariffSection = document.getElementById('vr-tariffs');
+  if (tariffSection && window.gsap && window.ScrollTrigger) {
+    // Можно добавить любую дополнительную анимацию для тарифов
+    // Например, поэтапное появление карточек:
+    gsap.fromTo('.vr-tariff-card',
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: '#vr-tariffs',
+          start: 'top 80%',
+          toggleActions: 'play none none reset'
+        }
+      }
+    );
+  }
+})();

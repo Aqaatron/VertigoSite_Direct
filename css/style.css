@@ -1449,3 +1449,119 @@ details[open] .vr-faq__icon {
   .vr-toast__text {
     color: var(--text-primary);
   }
+
+  /* ===== БЛОК ТАРИФОВ ===== */
+.vr-tariffs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.vr-tariff-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px 40px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  height: 100%;
+}
+
+.vr-tariff-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--glow-cyan-md);
+  border-color: rgba(232, 93, 21, 0.3);
+}
+
+.vr-tariff-card--popular {
+  border: 1px solid var(--accent-orange);
+  box-shadow: var(--glow-cyan-sm);
+}
+
+.vr-tariff__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--glass-border);
+  white-space: nowrap;
+}
+
+.vr-tariff__badge--popular {
+  background: var(--accent-orange);
+  color: white;
+  border-color: var(--accent-orange);
+  box-shadow: var(--glow-cyan-sm);
+}
+
+.vr-tariff__price {
+  font-size: 2.2rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  margin-top: 16px;
+}
+
+.vr-tariff__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.vr-tariff__features li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vr-tariff__features li::before {
+  content: "✓";
+  color: var(--accent-orange);
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.vr-tariff__feature-na {
+  opacity: 0.5;
+}
+.vr-tariff__feature-na::before {
+  content: "✕";
+  color: var(--text-muted);
+}
+
+.vr-tariff-card .vr-btn {
+  margin-top: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .vr-tariffs__grid {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 48px;
+  }
+  .vr-tariff-card {
+    padding: 32px 20px;
+  }
+}
