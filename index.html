@@ -145,8 +145,18 @@
               <div class="vr-form__group"><label class="vr-form__label" for="vr-booking-name">Имя</label><input class="vr-form__input" type="text" id="vr-booking-name" name="name" required placeholder="Ваше имя"></div>
               <div class="vr-form__group"><label class="vr-form__label" for="vr-booking-phone">Телефон</label><input class="vr-form__input" type="tel" id="vr-booking-phone" name="phone" required placeholder="+7 (___) ___-__-__"></div>
               <div class="vr-form__group vr-form__group--checkbox"><label class="vr-form__checkbox-label"><input type="checkbox" id="vr-booking-consent" name="consent" required class="vr-form__checkbox"><span class="vr-form__checkbox-custom"></span><span class="vr-form__checkbox-text">Я&nbsp;согласен на&nbsp;<a href="https://vertigovr.ru/policy" target="_blank" class="vr-form__checkbox-link">обработку персональных данных</a></span></label></div>
-              <button class="vr-btn vr-btn--primary vr-booking__submit" type="submit">Забронировать праздник</button>
+              <button class="vr-btn vr-btn--primary vr-booking__submit" type="submit">Узнать стоимость</button>
+              <div class="vr-booking__note" style="margin-top: 16px; font-size:0.8rem;">
+  ⚡ Перезвоним через 5 минут в рабочее время
+</div>
             </form>
+             <!-- НОВЫЙ ТЕКСТ ПОСЛЕ КНОПКИ -->
+        <div class="vr-booking__phone-note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>Предпочитаете общаться голосом? Позвоните нам по телефону <a href="tel:89107020210">8 902 710 02 10</a></span>
+        </div>
             <div class="vr-booking__messengers">
               <span class="vr-booking__messengers-label">Или напишите нам:</span>
               <div class="vr-booking__messengers-links">
@@ -205,5 +215,12 @@
     </footer>
   </div>
   <script src="js/main.js"></script>
+  <div class="vr-fixed-phone" id="vr-fixed-phone">
+  <a href="tel:89027100210" class="vr-fixed-phone__link" aria-label="Позвонить">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+  </a>
+</div>
 </body>
 </html>
