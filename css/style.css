@@ -1499,14 +1499,76 @@ details[open] .vr-faq__icon {
   .vr-fixed-phone { display: block; }
 }
 .vr-fixed-phone__link {
-  background: var(--accent-orange);
-  padding: 12px 20px;
-  border-radius: 50px;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
-  gap: 8px;
-  text-decoration: none;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--accent-orange);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.2s;
+}
+.vr-fixed-phone__link:hover {
+  transform: scale(1.05);
+}
+
+/* ===== АКЦИЯ СКИДКИ 20% ===== */
+.vr-v3-sale {
+  margin: 15px 0 0;
+  width: 100%;
+}
+.vr-sale-badge,
+.vr-booking__sale-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(105deg, #FFD166 0%, #FF6B4A 100%);
+  padding: 12px 28px;
+  border-radius: 60px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #1E1E2E;
+  box-shadow: 0 12px 28px rgba(255, 107, 74, 0.35);
+  animation: pulse-sale 1.8s infinite ease-in-out;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.vr-sale-icon {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+.vr-sale-text strong {
+  font-size: 1.3rem;
+  background: #1E1E2E;
+  color: #FFD166;
+  padding: 0 6px;
+  border-radius: 40px;
+  margin: 0 4px;
+}
+.vr-booking__sale {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.vr-booking__sale-badge {
+  background: linear-gradient(105deg, #FFB347, #FF6B00);
+  font-size: 1rem;
+  padding: 10px 24px;
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+}
+@keyframes pulse-sale {
+  0% { transform: scale(1); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4); }
+  50% { transform: scale(1.02); box-shadow: 0 15px 35px rgba(255, 107, 74, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4); }
+}
+@media (max-width: 640px) {
+  .vr-sale-badge, .vr-booking__sale-badge {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    gap: 6px;
+  }
+  .vr-sale-icon { font-size: 1.2rem; }
+  .vr-sale-text strong { font-size: 1rem; }
 }
