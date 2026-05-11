@@ -1234,11 +1234,12 @@ details[open] .vr-faq__icon {
 }
 
 .vr-footer__logo-text {
-  font-family: var(--font-heading);
+  font-family: 'Space Ranger', 'Montserrat', sans-serif !important;
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: 2px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .vr-footer__logo-v {
